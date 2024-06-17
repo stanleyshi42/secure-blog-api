@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllUnapprovedPosts();
 
     @Modifying
+    @Transactional
     @Query("UPDATE Post p SET p.approved = TRUE WHERE p.id = ?1")
-    Post approvePostById(long id);
+    int approvePostById(long id);
+
+    List<Post> findAllPostsByUserId(long id);
 }

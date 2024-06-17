@@ -22,11 +22,11 @@ public class PostService {
         return postRepo.findAll();
     }
 
-    public List<Post> getAllUnapprovedPosts(){
+    public List<Post> getUnapprovedPosts(){
         return postRepo.findAllUnapprovedPosts();
     }
 
-    public List<Post> getAllApprovedPosts(){
+    public List<Post> getApprovedPosts(){
         return postRepo.findAllApprovedPosts();
     }
 
@@ -34,9 +34,12 @@ public class PostService {
         return postRepo.findById(id).orElse(null);
     }
 
-    public Post approvePostById(long id){
-        return postRepo.approvePostById(id);
+    public List<Post> getPostsByUserId(long id){
+        return postRepo.findAllPostsByUserId(id);
     }
 
+    public int approvePostById(long id){
+        return postRepo.approvePostById(id);
+    }
 
 }
