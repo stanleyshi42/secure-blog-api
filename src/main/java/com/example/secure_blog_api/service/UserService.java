@@ -14,6 +14,10 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
 
+    public User addUser(User user) {
+        return userRepo.save(user);
+    }
+
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
@@ -23,8 +27,5 @@ public class UserService {
         return userRepo.findById(id).orElse(null);
     }
 
-    public User addUser(User user) {
-        return userRepo.save(user);
-    }
 
 }

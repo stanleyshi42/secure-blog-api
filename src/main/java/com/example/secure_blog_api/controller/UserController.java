@@ -5,10 +5,8 @@ import com.example.secure_blog_api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -16,9 +14,17 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("user")
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/user")
     public ResponseEntity<Object> addUser(@RequestBody User user) {
-        return null;
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User result = userService.addUser(user);
+
+        if (result.getId() > 0)
+            return ResponseEntity.ok(result);
+        return ResponseEntity.status(404).body("Error: failed to save user");
     }
 
     @GetMapping("/user")
