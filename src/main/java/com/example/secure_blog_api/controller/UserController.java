@@ -38,9 +38,22 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> getUserById(@PathVariable long id) {
         User result = userService.getUserById(id);
-        if (result != null)
-            return ResponseEntity.ok(result);
-        return ResponseEntity.status(404).body("Error: user not found");
+        if (result == null)
+            return ResponseEntity.status(404).body("Error: user not found");
+        return ResponseEntity.ok(result);
+
+    }
+
+    // Delete a user by ID; return deleted user if successful
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Object> deleteUserById(@PathVariable long id) {
+        User result = userService.getUserById(id);
+        if (result == null)
+            return ResponseEntity.status(404).body("Error: user not found");
+
+        userService.deleteUserById(id);
+        return ResponseEntity.ok(result);
     }
 
 }
