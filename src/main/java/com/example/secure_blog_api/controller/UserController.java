@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -17,7 +18,7 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/user")
+    @PostMapping("")
     public ResponseEntity<Object> addUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User result = userService.addUser(user);
@@ -27,13 +28,13 @@ public class UserController {
         return ResponseEntity.status(404).body("Error: failed to save user");
     }
 
-    @GetMapping("/user")
+    @GetMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> getUserById(@PathVariable long id) {
         User result = userService.getUserById(id);
