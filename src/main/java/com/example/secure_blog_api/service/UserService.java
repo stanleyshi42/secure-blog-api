@@ -25,6 +25,10 @@ public class UserService {
         return userRepo.findById(id).orElse(null);
     }
 
+    public User getUserByUsername(String username) {
+        return userRepo.findByUsername(username).orElse(null);
+    }
+
     public void deleteUserById(long id){
         userRepo.deleteById(id);
     }
