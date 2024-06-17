@@ -22,8 +22,21 @@ public class PostService {
         return postRepo.findAll();
     }
 
+    public List<Post> getAllUnapprovedPosts(){
+        return postRepo.findAllUnapprovedPosts();
+    }
+
+    public List<Post> getAllApprovedPosts(){
+        return postRepo.findAllApprovedPosts();
+    }
+
     public Post getPostById(long id) {
         return postRepo.findById(id).orElse(null);
     }
+
+    public Post approvePostById(long id){
+        return postRepo.approvePostById(id);
+    }
+
 
 }

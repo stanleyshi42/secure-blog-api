@@ -3,6 +3,7 @@ package com.example.secure_blog_api.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Table(name = "blog_user")
 @Entity
 @Data
 @NoArgsConstructor

@@ -26,8 +26,30 @@ public class PostController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
+    }
+
+    @GetMapping("/unapproved")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Object> getAllUnapprovedPosts() {
+        return ResponseEntity.ok(postService.getAllUnapprovedPosts());
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Object> getAllApprovedPosts() {
+        return ResponseEntity.ok(postService.getAllApprovedPosts());
+    }
+
+    @PutMapping("/approve/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Object> approvePostById(@PathVariable long id) {
+        Post result = postService.approvePostById(id);
+
+        if (result == null)
+            return ResponseEntity.status(404).body("Error: post not found");
+        return ResponseEntity.ok(result);
     }
 
 
