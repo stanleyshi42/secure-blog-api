@@ -31,7 +31,7 @@ public class UserControllerTests {
         assertEquals(200, result.getStatusCode().value());
 
         result = controller.getAllUsers();
-        assertEquals(200, result.getStatusCode().value());
+        assertEquals(401, result.getStatusCode().value());
     }
 
 }

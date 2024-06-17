@@ -42,7 +42,7 @@ public class PostController {
         return ResponseEntity.ok(postService.getApprovedPosts());
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<Object> getPostsByUserId(@PathVariable long userId) {
         return ResponseEntity.ok(postService.getPostsByUserId(userId));
     }
@@ -56,6 +56,5 @@ public class PostController {
             return ResponseEntity.status(404).body("Error: post not found");
         return ResponseEntity.ok(result);
     }
-
 
 }
