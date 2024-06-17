@@ -33,4 +33,13 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    @GetMapping("/user/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Object> getUserById(@PathVariable long id) {
+        User result = userService.getUserById(id);
+        if (result != null)
+            return ResponseEntity.ok(result);
+        return ResponseEntity.status(404).body("Error: user not found");
+    }
+
 }
